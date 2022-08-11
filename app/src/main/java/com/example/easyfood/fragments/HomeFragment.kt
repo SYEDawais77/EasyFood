@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.easyfood.activities.MealActivity
+import com.example.easyfood.adapters.CategoriesAdapter
 import com.example.easyfood.adapters.MostPopularMealsAdapter
 import com.example.easyfood.databinding.FragmentHomeBinding
-import com.example.easyfood.datasource.MealsByCategory
 import com.example.easyfood.datasource.Meal
+import com.example.easyfood.datasource.MealsByCategory
 import com.example.easyfood.viewModel.HomeViewModel
 
 
@@ -22,6 +24,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var randomMeal: Meal
     private lateinit var popularItemsAdapter: MostPopularMealsAdapter
+    private lateinit var categoriesAdapter: CategoriesAdapter
 
     companion object {
         const val MEAL_ID = "com.example.easyfood.fragments.idMeal"
@@ -62,17 +65,29 @@ class HomeFragment : Fragment() {
 
         onPopularItemClicked()
 
+        prepareCategoriesRecyclerView()
         homeViewModel.getMealsCategories()
-        //observerCategoriesLiveData()
+        observerCategoriesLiveData()
+
+
     }
 
-//    private fun observerCategoriesLiveData() {
-//        homeViewModel.observeCategoriesLiveData().observe(viewLifecycleOwner, { categories ->
-//            categories.forEach(
-//                categories ->
-//            )
-//        })
-//    }
+    private fun prepareCategoriesRecyclerView() {
+        categoriesAdapter = CategoriesAdapter()
+        binding.recyclerViewCategory.apply {
+            layoutManager = GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
+            adapter = categoriesAdapter
+        }
+
+    }
+
+    private fun observerCategoriesLiveData() {
+        homeViewModel.observeCategoriesLiveData().observe(viewLifecycleOwner) { categories ->
+
+            categoriesAdapter.setCategoryList(categories)
+
+        }
+    }
 
     private fun onPopularItemClicked() {
         popularItemsAdapter.onItemClick = {

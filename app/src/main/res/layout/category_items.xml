@@ -6,12 +6,12 @@
 
     <ImageView
         android:id="@+id/imageViewCategoryItem"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:src="@color/accent"
         />
 
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toBottomOf="@id/imageViewCategoryItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="@dimen/_15ssp"
+        android:textSize="@dimen/_13ssp"
         android:text="@string/categories"
         android:textColor="@color/black"
         android:fontFamily="@font/myfont"
